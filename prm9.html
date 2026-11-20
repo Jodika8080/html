@@ -1,0 +1,59 @@
+<!Doctype html>
+<html>
+<head>
+<title>change background color</title>
+<style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background-color 0.5s ease;
+        }
+
+        h2 {
+            color: white;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px;
+            text-transform: uppercase;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        button:hover {
+            background-color: white;
+            color: #333;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+<h2 align="center">change background color</h2>
+<center>
+<button onclick="changeColor()">click me</button>
+</center>
+<script>
+let colors=["red","blue","green","yellow","pink"];
+let i=0;
+function changeColor() {
+document.body.style.backgroundColor=colors[i];
+i++;
+if(i==5){
+   i=0;
+}
+}
+</script>
+</body>
+</html>
+
