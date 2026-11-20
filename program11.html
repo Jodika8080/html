@@ -1,0 +1,271 @@
+<html>
+<head>
+<title>Online Examination</title>
+<style>
+body {
+    font-family: Arial;
+    background-color: #f3e8ff;
+}
+.exam {
+    background-color: #ffffff;
+    width: 60%;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(75, 0, 130, 0.2);
+}
+h2 {
+    text-align: center;
+    color: #6a0dad;
+}
+h3 {
+    color: #8a2be2;
+}
+p {
+    font-weight: bold;
+    color: #4b0082;
+}
+button {
+    background-color: #8a2be2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #4b0082;
+}
+#result {
+    color: #228b22;
+    font-size: 20px;
+}
+input[type="text"] {
+    padding: 10px;
+    width: 90%;
+    margin-bottom: 15px;
+}
+#timer {
+    color: green;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: right;
+}
+
+#timer.warning {
+    color: red;
+}
+
+#examForm {
+    display: none;
+}
+</style>
+</head>
+<body>
+<div class="exam">
+<h2><u>ONLINE EXAMINATION</u></h2>
+<div id="registration">
+<h3>Student Registration</h3>
+<p>Student Name:</p>
+<input type="text" id="studentName"
+placeholder="Enter Student Name">
+<p>Register Number:</p>
+<input type="text" id="regNo"
+placeholder="Enter Register Number">
+<br>
+<button type="button" onclick="startExam()">
+Start Exam
+</button>
+</div>
+<div id="examForm">
+<h3 id="studentDetails"></h3>
+<h3 id="timer">Time Left: 1:00</h3>
+<h3>Answer the following questions:</h3>
+<form>
+<p>1. Which tag is used to insert an image in HTML?</p>
+<input type="radio" name="q1" value="image"> &lt;image&gt;<br>
+<input type="radio" name="q1" value="img"> &lt;img&gt;<br>
+<input type="radio" name="q1" value="picture"> &lt;picture&gt;<br>
+<p>2. Which attribute is used to provide a link in HTML?</p>
+<input type="radio" name="q2" value="src"> src<br>
+<input type="radio" name="q2" value="href"> href<br>
+<input type="radio" name="q2" value="link"> link<br>
+<p>3. Which HTML tag is used to create a paragraph?</p>
+<input type="radio" name="q3" value="p"> &lt;p&gt;<br>
+<input type="radio" name="q3" value="h1"> &lt;h1&gt;<br>
+<input type="radio" name="q3" value="br"> &lt;br&gt;<br>
+<p>4. Which CSS property is used to change text size?</p>
+<input type="radio" name="q4" value="font-style"> font-style<br>
+<input type="radio" name="q4" value="font-size"> font-size<br>
+<input type="radio" name="q4" value="text-color"> text-color<br>
+<p>5. Which CSS property makes text bold?</p>
+<input type="radio" name="q5" value="font-weight"> font-weight<br>
+<input type="radio" name="q5" value="font-family"> font-family<br>
+<input type="radio" name="q5" value="text-align"> text-align<br>
+<p>6. Which symbol is used to select a class in CSS?</p>
+<input type="radio" name="q6" value="#"> #<br>
+<input type="radio" name="q6" value="."> .<br>
+<input type="radio" name="q6" value="*"> *<br>
+<p>7. Which HTML tag is used to create a table row?</p>
+<input type="radio" name="q7" value="td"> &lt;td&gt;<br>
+<input type="radio" name="q7" value="tr"> &lt;tr&gt;<br>
+<input type="radio" name="q7" value="th"> &lt;th&gt;<br>
+<p>8. Which keyword is used to define a constant in JavaScript?</p>
+<input type="radio" name="q8" value="var"> var<br>
+<input type="radio" name="q8" value="let"> let<br>
+<input type="radio" name="q8" value="const"> const<br>
+<p>9. Which method is used to display a message in the browser console?</p>
+<input type="radio" name="q9" value="console.log()"> console.log()<br>
+<input type="radio" name="q9" value="alert()"> alert()<br>
+<input type="radio" name="q9" value="prompt()"> prompt()<br>
+<p>10. Which HTML tag is used to create a hyperlink?</p>
+<input type="radio" name="q10" value="a"> &lt;a&gt;<br>
+<input type="radio" name="q10" value="link"> &lt;link&gt;<br>
+<input type="radio" name="q10" value="href"> &lt;href&gt;<br>
+<br>
+<button type="button" onclick="checkResult(false)">
+Submit Exam
+</button>
+</form>
+</div>
+<h3 id="result"></h3>
+</div>
+<script>
+
+let timeLeft = 1 * 60;
+let timerInterval;
+let submitted = false;
+function startExam() {
+let name = document.getElementById("studentName").value.trim();
+let reg = document.getElementById("regNo").value.trim();
+
+    if(name === "" || reg === "") {
+        alert("Please enter Student Name and Register Number");
+        return;
+    }
+ document.getElementById("studentDetails").innerHTML =
+        "Student Name: " + escapeHTML(name) +
+        "<br>Register Number: " + escapeHTML(reg);
+
+    document.getElementById("registration").style.display = "none";
+
+    document.getElementById("examForm").style.display = "block";
+
+    timerInterval = setInterval(function() {
+
+        timeLeft--;
+
+        updateTimer();
+
+        if(timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            alert("Time is over! Exam submitted automatically.");
+
+            checkResult(true);
+
+        }
+
+    }, 1000);
+
+}
+function escapeHTML(value) {
+    return value.replace(/[&<>"']/g, function(c) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        }[c];
+    });
+}
+function updateTimer() {
+
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    let display =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    let timer = document.getElementById("timer");
+
+    timer.innerHTML = "Time Left: " + display;
+
+    if(timeLeft <= 60) {
+        timer.classList.add("warning");
+    }
+
+}
+function checkResult(autoSubmit) {
+
+    if(submitted) {
+        return;
+    }
+
+    if(!autoSubmit) {
+
+        let confirmSubmit = confirm(
+            "Are you sure you want to submit the exam?"
+        );
+
+        if(!confirmSubmit) {
+            return;
+        }
+
+    }
+
+    submitted = true;
+
+    clearInterval(timerInterval);
+
+    let score = 0;
+
+    let answers = {
+        q1: "img",
+        q2: "href",
+        q3: "p",
+        q4: "font-size",
+        q5: "font-weight",
+        q6: ".",
+        q7: "tr",
+        q8: "const",
+        q9: "console.log()",
+        q10: "a"
+    };
+
+    for(let question in answers) {
+
+        let selected = document.querySelector(
+            'input[name="' + question + '"]:checked'
+        );
+
+        if(selected && selected.value === answers[question]) {
+            score++;
+        }
+
+    }
+
+    let name = document.getElementById("studentName").value;
+    let reg = document.getElementById("regNo").value;
+
+    document.getElementById("examForm").style.display = "none";
+
+    document.getElementById("result").innerHTML =
+
+        "<h2>EXAM RESULT</h2>" +
+        "<p>Student Name: " + escapeHTML(name) + "</p>" +
+        "<p>Register Number: " + escapeHTML(reg) + "</p>" +
+        "<p>Your Score is: " + score + "/10</p>" +
+        "<p>Percentage: " + (score * 10) + "%</p>" +
+        "<p>" + (autoSubmit ?
+        "Time expired. Exam submitted automatically." :
+        "Exam submitted successfully!") + "</p>";
+
+}
+</script>
+</body>
+</html>
+
