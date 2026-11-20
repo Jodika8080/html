@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JavaScript Mouse Events</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: lightgray;
+            padding: 30px;
+        }
+        #content {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+       img {
+            width: 300px;
+            height: 200px;
+            border-radius: 8px;
+        }
+       h2 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<h1>JavaScript Mouse Event Handling</h1>
+<div id="content"
+         onmouseover="changeContent()"
+         onmouseout="restoreContent()">
+      <img id="myImage"
+             src="/home/ksb/Downloads/image1.jpeg"
+             alt="Original Image">
+
+        <h2 id="myHeading">Welcome to My Page</h2>
+
+        <p id="myText">
+            Move your mouse over this content
+            to see a new image and text.
+        </p>
+ </div>
+<script>
+        function changeContent() {
+        document.getElementById("myImage").src =
+                "/home/ksb/Downloads/img2.jpg";
+         document.getElementById("myHeading").innerHTML =
+                "Thank You for Visiting!";
+         document.getElementById("myText").innerHTML =
+                "The image and text have been changed using JavaScript.";
+}
+        function restoreContent() {
+        document.getElementById("myImage").src =
+                "/home/ksb/Downloads/image1.jpeg";
+        document.getElementById("myHeading").innerHTML =
+                "Welcome to My Page";
+        document.getElementById("myText").innerHTML =
+                "Move your mouse over this content to see a new image and text.";
+  }
+</script>
+</body>
+</html>
+
